@@ -108,20 +108,23 @@ class DashboardTest extends TestCase
     {
         $response = $this->actingAs(User::factory()->admin()->create())->get('/dashboard');
 
+        // Modul Anggota belum memiliki route, jadi tampil sebagai placeholder.
         $response->assertOk();
-        $response->assertSee('Katalog & Buku');
+        $response->assertSee('Anggota &amp; Kartu', false);
         $response->assertSee('Segera hadir');
-        $response->assertDontSee('href="/books"', false);
+        $response->assertDontSee('href="'.url('/members').'"', false);
     }
 
     public function test_modules_become_links_once_their_route_exists(): void
     {
-        Route::middleware(['web', 'auth'])->get('/books', fn () => 'Books')->name('books.index');
+        Route::middleware(['web', 'auth'])->get('/members', fn () => 'Members')->name('members.index');
         Route::getRoutes()->refreshNameLookups();
 
         $response = $this->actingAs(User::factory()->create())->get('/dashboard');
 
         $response->assertOk();
+        $response->assertSee('href="'.route('members.index').'"', false);
+        // Modul Katalog & Buku sudah memiliki route asli.
         $response->assertSee('href="'.route('books.index').'"', false);
     }
 

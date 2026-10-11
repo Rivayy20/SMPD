@@ -198,6 +198,20 @@ return [
         'current_password' => 'kata sandi saat ini',
         'name' => 'nama',
         'token' => 'token',
+
+        // Modul Katalog & Buku
+        'title' => 'judul',
+        'isbn' => 'ISBN',
+        'description' => 'deskripsi',
+        'category_id' => 'kategori',
+        'publisher_id' => 'penerbit',
+        'authors' => 'penulis',
+        'authors.*' => 'penulis',
+        'publication_year' => 'tahun terbit',
+        'stock' => 'stok',
+        'status' => 'status',
+        'cover_image' => 'sampul',
+        'remove_cover' => 'hapus sampul',
     ],
 
 ];

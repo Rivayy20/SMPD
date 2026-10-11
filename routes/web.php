@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,16 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Operational Modules (Admin & Petugas)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'role:admin,petugas'])->group(function () {
+    Route::resource('books', BookController::class);
 });
 
 /*
