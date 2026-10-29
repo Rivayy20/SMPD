@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,17 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
+
+    /*
+    |----------------------------------------------------------------------
+    | Modul Perpustakaan - Anggota & Kartu
+    |----------------------------------------------------------------------
+    */
+    Route::get('/members', [MemberController::class, 'index'])->name('members.index');
+    Route::get('/members/create', [MemberController::class, 'create'])->name('members.create');
+    Route::post('/members', [MemberController::class, 'store'])->name('members.store');
+    Route::get('/members/{member}', [MemberController::class, 'show'])->name('members.show');
+    Route::get('/members/{member}/print-card', [MemberController::class, 'printCard'])->name('members.print-card');
 });
 
 /*
@@ -45,4 +57,4 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     //
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
